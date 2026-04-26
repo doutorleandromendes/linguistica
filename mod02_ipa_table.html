@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head><meta charset="UTF-8"><style>
+body { font-family: system-ui, sans-serif; background: transparent; padding: 0.5rem 0; margin: 0; font-size: 12px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 0.5px solid #d3d1c7; padding: 5px 8px; text-align: center; }
+th { background: #f5f4f0; font-size: 10px; font-weight: 500; color: #5f5e5a; letter-spacing: 0.03em; }
+th.row-header { text-align: right; font-size: 10px; color: #5f5e5a; background: #f5f4f0; min-width: 90px; }
+td { font-size: 13px; color: #2c2c2a; min-width: 44px; }
+td .pair { display: flex; justify-content: center; gap: 8px; }
+td .vd { color: #3C3489; font-weight: 500; }   /* voiced */
+td .vl { color: #5f5e5a; }                      /* voiceless */
+td.highlight { background: #EEEDFE; }
+td.highlight2 { background: #E1F5EE; }
+td.highlight3 { background: #FAECE7; }
+.legend { display: flex; gap: 18px; margin-top: 10px; flex-wrap: wrap; }
+.leg { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #5f5e5a; }
+.dot { width: 9px; height: 9px; border-radius: 2px; }
+.caption { font-size: 11px; color: #888780; margin-top: 8px; font-style: italic; }
+</style></head>
+<body>
+
+<table>
+  <thead>
+    <tr>
+      <th class="row-header">modo \ lugar →</th>
+      <th>Bilabial</th>
+      <th>Labiodental</th>
+      <th>Dental/<br>Alveolar</th>
+      <th>Pós-alv.<br>/Palatal</th>
+      <th>Velar</th>
+      <th>Glotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th class="row-header">Oclusivas (plosivas)</th>
+      <td class="highlight"><div class="pair"><span class="vl">p</span><span class="vd">b</span></div></td>
+      <td>—</td>
+      <td class="highlight"><div class="pair"><span class="vl">t</span><span class="vd">d</span></div></td>
+      <td>—</td>
+      <td class="highlight"><div class="pair"><span class="vl">k</span><span class="vd">g</span></div></td>
+      <td><span class="vl">ʔ</span></td>
+    </tr>
+    <tr>
+      <th class="row-header">Fricativas</th>
+      <td><div class="pair"><span class="vl">ɸ</span><span class="vd">β</span></div></td>
+      <td class="highlight2"><div class="pair"><span class="vl">f</span><span class="vd">v</span></div></td>
+      <td class="highlight2"><div class="pair"><span class="vl">s</span><span class="vd">z</span></div></td>
+      <td class="highlight2"><div class="pair"><span class="vl">ʃ</span><span class="vd">ʒ</span></div></td>
+      <td><div class="pair"><span class="vl">x</span><span class="vd">ɣ</span></div></td>
+      <td class="highlight2"><span class="vl">h</span></td>
+    </tr>
+    <tr>
+      <th class="row-header">Nasais</th>
+      <td class="highlight3"><span class="vd">m</span></td>
+      <td>—</td>
+      <td class="highlight3"><span class="vd">n</span></td>
+      <td><span class="vd">ɲ</span></td>
+      <td class="highlight3"><span class="vd">ŋ</span></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <th class="row-header">Aproximantes / Laterais</th>
+      <td><span class="vd">w</span></td>
+      <td>—</td>
+      <td><span class="vd">l · r · ɾ</span></td>
+      <td><span class="vd">j · ʎ</span></td>
+      <td>—</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="legend">
+  <div class="leg"><div class="dot" style="background:#5f5e5a;border-radius:50%;"></div> <span style="color:#5f5e5a;">surda (voiceless)</span></div>
+  <div class="leg"><div class="dot" style="background:#3C3489;border-radius:50%;"></div> <span style="color:#3C3489;">sonora (voiced)</span></div>
+  <div class="leg"><div class="dot" style="background:#EEEDFE;"></div> Oclusivas — usadas nas Leis de Grimm</div>
+  <div class="leg"><div class="dot" style="background:#E1F5EE;"></div> Fricativas — resultado da mutação germânica</div>
+  <div class="leg"><div class="dot" style="background:#FAECE7;"></div> Nasais</div>
+</div>
+<p class="caption">Cada célula: surda à esquerda / sonora à direita. Lugar = onde o trato vocal fecha. Modo = como fecha.</p>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head><meta charset="UTF-8"><style>
+body { font-family: system-ui, sans-serif; background: transparent; padding: 0.5rem 0; margin: 0; }
+.row { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-start; }
+.card { background: #fff; border: 0.5px solid #d3d1c7; border-radius: 10px; padding: 1rem; flex: 1; min-width: 200px; }
+.card-title { font-size: 11px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: #888780; margin-bottom: 0.75rem; }
+.caption { font-size: 11px; color: #888780; margin-top: 6px; text-align: center; font-style: italic; }
+
+/* allophone diagram */
+.phoneme-box { background: #EEEDFE; border: 1.5px solid #AFA9EC; border-radius: 8px; padding: 8px 12px; text-align: center; margin-bottom: 8px; }
+.phoneme-label { font-size: 15px; font-weight: 600; color: #3C3489; }
+.phoneme-sub { font-size: 10px; color: #534AB7; margin-top: 1px; }
+.allo-row { display: flex; gap: 8px; justify-content: center; }
+.allo-box { background: #F5F4F0; border: 0.5px solid #d3d1c7; border-radius: 6px; padding: 6px 10px; text-align: center; flex: 1; }
+.allo-sym { font-size: 14px; font-weight: 500; color: #2c2c2a; }
+.allo-ctx { font-size: 10px; color: #888780; margin-top: 2px; }
+.allo-ex { font-size: 10px; color: #5f5e5a; margin-top: 1px; font-style: italic; }
+.arrow-down { text-align: center; color: #B4B2A9; font-size: 14px; margin: 4px 0; }
+
+.minpair { display: flex; gap: 6px; margin-bottom: 6px; align-items: center; }
+.mp-word { background: #F5F4F0; border: 0.5px solid #d3d1c7; border-radius: 5px; padding: 4px 10px; font-size: 13px; color: #2c2c2a; font-weight: 500; flex: 1; text-align: center; }
+.mp-diff { font-size: 11px; color: #888780; text-align: center; width: 60px; flex-shrink: 0; }
+.mp-contrast { background: #EEEDFE; border-color: #AFA9EC; color: #3C3489; }
+</style></head>
+<body>
+<div class="row">
+
+  <!-- Vocal tract -->
+  <div class="card">
+    <div class="card-title">Trato vocal — lugares de articulação</div>
+    <svg viewBox="0 0 220 240" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <!-- simplified side profile of vocal tract -->
+      <!-- skull outline -->
+      <path d="M60,20 Q110,10 150,30 Q185,50 185,90 Q185,120 165,135 L160,145" fill="#f5f4f0" stroke="#d3d1c7" stroke-width="1"/>
+      <!-- palate/roof of mouth -->
+      <path d="M60,95 Q90,80 125,82 Q150,84 165,100" fill="none" stroke="#B4B2A9" stroke-width="1.2"/>
+      <!-- tongue -->
+      <path d="M55,145 Q80,130 110,128 Q140,126 158,138 Q165,145 160,155 Q140,160 110,158 Q80,156 55,155 Z" fill="#FAECE7" stroke="#F0997B" stroke-width="0.8"/>
+      <!-- lower jaw -->
+      <path d="M45,145 Q50,160 60,175 Q80,195 110,200 Q140,200 160,185 Q175,170 175,155" fill="#f5f4f0" stroke="#d3d1c7" stroke-width="1"/>
+      <!-- lips -->
+      <ellipse cx="50" cy="148" rx="8" ry="5" fill="#F0997B" opacity="0.6"/>
+      <!-- teeth suggestion -->
+      <rect x="58" y="143" width="18" height="6" rx="1" fill="#fff" stroke="#d3d1c7" stroke-width="0.5"/>
+      <rect x="58" y="151" width="18" height="6" rx="1" fill="#fff" stroke="#d3d1c7" stroke-width="0.5"/>
+      <!-- pharynx / throat -->
+      <path d="M160,155 Q175,170 178,195 Q180,215 175,230" fill="none" stroke="#d3d1c7" stroke-width="1"/>
+      <path d="M145,175 Q150,200 148,230" fill="none" stroke="#d3d1c7" stroke-width="1"/>
+      <!-- glottis label area -->
+      <ellipse cx="162" cy="210" rx="10" ry="5" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.8"/>
+
+      <!-- Labels -->
+      <!-- bilabial -->
+      <line x1="50" y1="148" x2="20" y2="128" stroke="#AFA9EC" stroke-width="0.7" stroke-dasharray="2,1"/>
+      <text x="18" y="124" text-anchor="middle" font-size="9" fill="#3C3489" font-weight="500">bilabial</text>
+      <text x="18" y="134" text-anchor="middle" font-size="8" fill="#888780">p, b, m</text>
+
+      <!-- labiodental -->
+      <line x1="62" y1="148" x2="25" y2="165" stroke="#AFA9EC" stroke-width="0.7" stroke-dasharray="2,1"/>
+      <text x="18" y="162" text-anchor="middle" font-size="9" fill="#3C3489" font-weight="500">labiodental</text>
+      <text x="18" y="172" text-anchor="middle" font-size="8" fill="#888780">f, v</text>
+
+      <!-- alveolar -->
+      <line x1="92" y1="130" x2="72" y2="105" stroke="#AFA9EC" stroke-width="0.7" stroke-dasharray="2,1"/>
+      <text x="60" y="101" text-anchor="middle" font-size="9" fill="#3C3489" font-weight="500">alveolar</text>
+      <text x="60" y="111" text-anchor="middle" font-size="8" fill="#888780">t, d, s, n, l</text>
+
+      <!-- palatal -->
+      <line x1="125" y1="82" x2="125" y2="60" stroke="#AFA9EC" stroke-width="0.7" stroke-dasharray="2,1"/>
+      <text x="125" y="56" text-anchor="middle" font-size="9" fill="#3C3489" font-weight="500">palatal</text>
+      <text x="125" y="66" text-anchor="middle" font-size="8" fill="#888780">ʃ, ʒ, j, ɲ</text>
+
+      <!-- velar -->
+      <line x1="152" y1="93" x2="175" y2="72" stroke="#AFA9EC" stroke-width="0.7" stroke-dasharray="2,1"/>
+      <text x="185" y="68" text-anchor="middle" font-size="9" fill="#3C3489" font-weight="500">velar</text>
+      <text x="185" y="78" text-anchor="middle" font-size="8" fill="#888780">k, g, ŋ</text>
+
+      <!-- glotal -->
+      <line x1="162" y1="210" x2="195" y2="210" stroke="#5DCAA5" stroke-width="0.7" stroke-dasharray="2,1"/>
+      <text x="205" y="207" text-anchor="start" font-size="9" fill="#085041" font-weight="500">glotal</text>
+      <text x="205" y="217" text-anchor="start" font-size="8" fill="#888780">h, ʔ</text>
+
+      <!-- nasal cavity label -->
+      <text x="120" y="50" text-anchor="middle" font-size="8.5" fill="#B4B2A9" font-style="italic">cavidade nasal</text>
+    </svg>
+    <div class="caption">Corte sagital — onde o trato vocal "fecha" para produzir cada som</div>
+  </div>
+
+  <!-- Right column -->
+  <div style="flex:1; min-width:200px; display:flex; flex-direction:column; gap:12px;">
+
+    <!-- Phoneme vs allophone -->
+    <div class="card">
+      <div class="card-title">Fonema vs. alofone — /t/ em inglês</div>
+      <div class="phoneme-box">
+        <div class="phoneme-label">/t/</div>
+        <div class="phoneme-sub">fonema — unidade mental abstrata</div>
+      </div>
+      <div class="arrow-down">↓ realizado como...</div>
+      <div class="allo-row">
+        <div class="allo-box">
+          <div class="allo-sym">[tʰ]</div>
+          <div class="allo-ctx">início de sílaba</div>
+          <div class="allo-ex">top, time</div>
+        </div>
+        <div class="allo-box">
+          <div class="allo-sym">[t]</div>
+          <div class="allo-ctx">após /s/</div>
+          <div class="allo-ex">stop, step</div>
+        </div>
+        <div class="allo-box">
+          <div class="allo-sym">[ɾ]</div>
+          <div class="allo-ctx">entre vogais (AmE)</div>
+          <div class="allo-ex">butter, water</div>
+        </div>
+      </div>
+      <div class="caption" style="margin-top:8px;">Falantes nativos não "ouvem" a diferença — é o mesmo fonema para eles</div>
+    </div>
+
+    <!-- Minimal pairs -->
+    <div class="card">
+      <div class="card-title">Pares mínimos — prova do fonema</div>
+      <div class="minpair">
+        <div class="mp-word"><span class="mp-contrast">p</span>ato</div>
+        <div class="mp-diff">/p/ vs /b/</div>
+        <div class="mp-word"><span class="mp-contrast">b</span>ato</div>
+      </div>
+      <div class="minpair">
+        <div class="mp-word">ca<span class="mp-contrast">s</span>a</div>
+        <div class="mp-diff">/s/ vs /z/</div>
+        <div class="mp-word">ca<span class="mp-contrast">z</span>a</div>
+      </div>
+      <div class="minpair">
+        <div class="mp-word"><span class="mp-contrast">m</span>ato</div>
+        <div class="mp-diff">/m/ vs /g/</div>
+        <div class="mp-word"><span class="mp-contrast">g</span>ato</div>
+      </div>
+      <div class="caption">Se trocar um único som muda o significado → os dois sons são fonemas distintos</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
