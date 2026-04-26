@@ -687,6 +687,24 @@ async function loadModule(key, navEl) {
   renderModule(data, key);
 }
 
+// ── Iframe auto-resize ────────────────────────────────────────────────────
+function resizeIframe(el) {
+  try {
+    const doc = el.contentDocument || el.contentWindow.document;
+    const h   = doc.documentElement.scrollHeight || doc.body.scrollHeight;
+    if (h > 0) el.style.height = h + 16 + 'px'; // +16px safety margin
+  } catch(e) {}
+}
+
+function attachIframeResizers(container) {
+  (container || document).querySelectorAll('.sec-body iframe').forEach(iframe => {
+    // fire immediately if already loaded (e.g. same-origin cached)
+    const tryNow = () => { resizeIframe(iframe); };
+    iframe.addEventListener('load', tryNow);
+    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') tryNow();
+  });
+}
+
 // ── Render module ──────────────────────────────────────────────────────────
 function renderModule(data, key) {
   const view = document.getElementById('module-view');
@@ -736,6 +754,7 @@ function renderModule(data, key) {
 
   html += '</div>';
   view.innerHTML = html;
+  attachIframeResizers(view);
 }
 
 // ── Diagram builder ────────────────────────────────────────────────────────
@@ -751,15 +770,16 @@ function buildDiagramas(sec) {
 
   return list.map(d => {
     if (!d || !d.arquivo) return '';
-    const h = d.altura || 320;
     return `
       <div class="sec-diagram">
         <div class="sec-diagram-hd">
           <span class="diag-icon">◈</span>
           ${escHtml(d.titulo || 'Diagrama')}
         </div>
-        <iframe src="${escHtml(d.arquivo)}" height="${h}"
+        <iframe src="${escHtml(d.arquivo)}" height="0"
                 scrolling="no" loading="lazy"
+                onload="resizeIframe(this)"
+                style="display:block;width:100%;border:none;"
                 title="${escHtml(d.titulo || 'Diagrama')}"></iframe>
         ${d.legenda
           ? `<div class="sec-diagram-caption">${escHtml(d.legenda)}</div>`
@@ -771,7 +791,11 @@ function buildDiagramas(sec) {
 // ── Section toggle helpers ─────────────────────────────────────────────────
 function toggleSec(id) {
   const el = document.getElementById(id);
-  if (el) el.classList.toggle('open');
+  if (!el) return;
+  el.classList.toggle('open');
+  if (el.classList.contains('open')) {
+    requestAnimationFrame(() => el.querySelectorAll('iframe').forEach(resizeIframe));
+  }
 }
 
 function expandAll(key) {
