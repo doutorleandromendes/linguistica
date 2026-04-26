@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso de Linguística — Semiótica & Etimologia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ─── Design tokens ─────────────────────────────────────────────────────── */
+  :root {
+    --bg:        #f2f5f0;
+    --bg-warm:   #e6ece3;
+    --bg-card:   #f8fbf7;
+    --bg-sec:    #f8fbf7;
+    --ink:       #191e17;
+    --ink-soft:  #3e4739;
+    --ink-faint: #7c8a74;
+    --teal:      #2a5f6b;
+    --teal-bg:   #e8f2f4;
+    --teal-mid:  #4a8a99;
+    --gold:      #7a6230;
+    --gold-bg:   #f6f0e0;
+    --gold-bdr:  #c8a850;
+    --border:    #c8d4c2;
+    --border-s:  #a0b098;
+    --mark:      #fff0a0;
+    --mark-b:    #dfc030;
+    --done-bg:   #e3f0e3;
+    --done-fg:   #3a6a3a;
+    --foco-bg:   #f5ecd8;
+    --foco-fg:   #7a5820;
+    --foco-bdr:  #c8a040;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.72;
+    min-height: 100vh;
+  }
+
+  /* ─── Layout ─────────────────────────────────────────────────────────────── */
+  #shell { display: grid; grid-template-columns: 284px 1fr; min-height: 100vh; }
+
+  /* ─── Sidebar ────────────────────────────────────────────────────────────── */
+  #sidebar {
+    background: var(--bg-warm);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem 1.15rem;
+    position: sticky; top: 0;
+    height: 100vh; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 0;
+  }
+
+  #sidebar h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.87rem; font-weight: 600;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--ink-soft); line-height: 1.45;
+    margin-bottom: 1rem; padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border);
+  }
+  #sidebar h1 em {
+    display: block; font-style: italic; font-weight: 300;
+    font-size: 0.82em; letter-spacing: 0.05em;
+    color: var(--ink-faint); margin-top: 0.15rem;
+  }
+
+  /* Search */
+  #search-wrap { position: relative; margin-bottom: 0.8rem; }
+
+  #search-input {
+    width: 100%; padding: 0.42em 2em 0.42em 1.9em;
+    font-family: 'Crimson Pro', serif; font-size: 0.88rem;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 4px; color: var(--ink); outline: none;
+    transition: border-color 0.15s;
+  }
+  #search-input:focus { border-color: var(--teal); }
+  #search-input::placeholder { color: var(--ink-faint); }
+
+  #search-icon {
+    position: absolute; left: 0.55em; top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-faint); font-size: 0.85rem; pointer-events: none;
+  }
+  #search-clear {
+    position: absolute; right: 0.45em; top: 50%;
+    transform: translateY(-50%);
+    background: none; border: none; color: var(--ink-faint);
+    cursor: pointer; font-size: 0.85rem; display: none; padding: 0.1em;
+  }
+  #search-clear:hover { color: var(--ink); }
+
+  /* Nav separators & items */
+  .nav-part {
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.11em;
+    text-transform: uppercase; color: var(--ink-faint);
+    padding: 0.65rem 0.4rem 0.18rem;
+  }
+  .nav-part:first-of-type { padding-top: 0.1rem; }
+
+  .nav-mod {
+    padding: 0.3rem 0.6rem; border-radius: 4px;
+    font-size: 0.81rem; cursor: pointer; color: var(--ink-soft);
+    transition: background 0.12s; line-height: 1.4;
+    display: flex; align-items: center; gap: 0.35rem;
+  }
+  .nav-mod:hover { background: var(--border); }
+  .nav-mod.active { background: var(--teal-bg); color: var(--teal); font-weight: 500; }
+
+  .nav-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.73rem; font-weight: 600; opacity: 0.45; min-width: 1.7rem;
+    flex-shrink: 0;
+  }
+
+  .nav-label { flex: 1; }
+
+  .nav-foco {
+    color: var(--gold); font-size: 0.6em;
+    flex-shrink: 0; opacity: 0.85;
+  }
+
+  .nav-badge {
+    font-size: 0.59rem; padding: 0.1em 0.38em;
+    border-radius: 3px; font-weight: 500; letter-spacing: 0.03em;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .nav-badge.done { background: var(--done-bg); color: var(--done-fg); }
+  .nav-badge.next { background: var(--bg); color: var(--ink-faint); border: 1px solid var(--border); }
+
+  /* ─── Main ───────────────────────────────────────────────────────────────── */
+  #main { padding: 3rem 4.2rem 6rem; max-width: 900px; }
+
+  /* Page header */
+  .page-header {
+    margin-bottom: 2.2rem; padding-bottom: 1.2rem;
+    border-bottom: 2px solid var(--border-s);
+  }
+  .page-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300; line-height: 1.2;
+  }
+  .page-header .sub { font-size: 0.86rem; color: var(--ink-faint); margin-top: 0.35rem; }
+
+  .mod-badges {
+    display: flex; gap: 0.45rem; align-items: center;
+    flex-wrap: wrap; margin-bottom: 0.7rem;
+  }
+  .mod-badge {
+    display: inline-block; font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.2em 0.65em; border-radius: 3px;
+  }
+  .mod-badge.parte { background: var(--bg-warm); color: var(--ink-faint); border: 1px solid var(--border); }
+  .mod-badge.foco  { background: var(--foco-bg); color: var(--foco-fg); border: 1px solid var(--foco-bdr); }
+  .mod-badge.done  { background: var(--done-bg); color: var(--done-fg); }
+  .mod-badge.wip   { background: var(--teal-bg); color: var(--teal); }
+
+  /* Module intro / overture block */
+  .mod-intro {
+    font-size: 1rem; color: var(--ink-soft); line-height: 1.85;
+    margin-bottom: 1.8rem;
+    padding: 0.9rem 1.15rem;
+    background: var(--gold-bg); border-left: 3px solid var(--gold-bdr);
+    border-radius: 0 4px 4px 0;
+    font-style: italic;
+  }
+
+  /* Controls */
+  .sec-controls {
+    display: flex; gap: 0.5rem; margin-bottom: 0.95rem; flex-wrap: wrap;
+  }
+  .ctrl-btn {
+    font-family: 'Crimson Pro', serif; font-size: 0.79rem;
+    padding: 0.27em 0.82em; border-radius: 4px;
+    border: 1px solid var(--border); background: var(--bg-card);
+    color: var(--ink-soft); cursor: pointer; transition: all 0.12s;
+  }
+  .ctrl-btn:hover { background: var(--bg-warm); border-color: var(--border-s); }
+
+  /* ─── Section blocks ─────────────────────────────────────────────────────── */
+  .sec-list { display: flex; flex-direction: column; gap: 0.38rem; }
+
+  .sec-block {
+    border: 1px solid var(--border); border-radius: 5px; overflow: hidden;
+  }
+
+  .sec-hd {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    background: var(--bg-card); cursor: pointer; user-select: none;
+    transition: background 0.11s;
+    border-bottom: 1px solid transparent;
+  }
+  .sec-hd:hover { background: #eef4ee; }
+  .sec-block.open .sec-hd { background: #e4f0e8; border-bottom-color: var(--border); }
+
+  .sec-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.02rem; font-weight: 600; color: var(--teal); flex: 1;
+    line-height: 1.35;
+  }
+  .sec-arr {
+    font-size: 0.58em; color: var(--teal);
+    transition: transform 0.18s; opacity: 0.5; flex-shrink: 0;
+  }
+  .sec-block.open .sec-arr { transform: rotate(180deg); }
+
+  .sec-body {
+    display: none; padding: 1.25rem 1.45rem;
+    background: var(--bg-sec); font-size: 0.97rem;
+    line-height: 1.82; color: var(--ink);
+  }
+  .sec-block.open .sec-body { display: block; }
+
+  /* Prose styles inside section body */
+  .sec-body p { margin-bottom: 0.9rem; }
+  .sec-body p:last-child:not(.sec-body p + .sec-diagram) { margin-bottom: 0; }
+  .sec-body em { font-style: italic; }
+  .sec-body strong { font-weight: 600; }
+
+  .sec-body blockquote {
+    margin: 1rem 0; padding: 0.8rem 1.1rem;
+    background: var(--bg-warm); border-left: 2px solid var(--border-s);
+    font-style: italic; color: var(--ink-soft);
+  }
+  .sec-body blockquote cite {
+    display: block; margin-top: 0.4rem;
+    font-size: 0.75rem; font-style: normal; color: var(--ink-faint);
+  }
+
+  .sec-body h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.06rem; font-weight: 600; color: var(--teal);
+    margin: 1.15rem 0 0.4rem;
+  }
+
+  .sec-body ul, .sec-body ol { margin: 0.4rem 0 0.85rem 1.45rem; }
+  .sec-body li { margin-bottom: 0.28rem; }
+
+  .sec-body dl { margin: 0.6rem 0 0.7rem 1rem; }
+  .sec-body dt { font-weight: 600; margin-top: 0.38rem; }
+  .sec-body dd { margin-left: 1.1rem; color: var(--ink-soft); }
+
+  .sec-body .nota {
+    margin: 1.1rem 0; padding: 0.85rem 1.1rem;
+    background: var(--teal-bg); border: 1px solid #a8ccd4;
+    border-radius: 4px; font-size: 0.91rem; color: #1e4c58;
+  }
+  .sec-body .nota-label {
+    display: block; font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 0.3rem;
+  }
+
+  /* ─── Diagram embed ──────────────────────────────────────────────────────── */
+  /*
+   * JSON field: diagrama
+   * Each section can have an optional "diagrama" object:
+   * {
+   *   "arquivo": "mod01_hockett.html",   ← filename of the HTML diagram
+   *   "titulo":  "Features de Hockett",  ← label shown in header
+   *   "altura":  300,                     ← iframe height in px (default 320)
+   *   "legenda": "13 propriedades…"       ← caption text (optional)
+   * }
+   *
+   * A section may also have multiple diagrams via "diagramas": [ {...}, {...} ]
+   */
+  .sec-diagram {
+    margin-top: 1.15rem;
+    border: 1px solid var(--border); border-radius: 5px; overflow: hidden;
+  }
+
+  .sec-diagram-hd {
+    padding: 0.38rem 0.9rem;
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--teal);
+    display: flex; align-items: center; gap: 0.45rem;
+  }
+  .sec-diagram-hd .diag-icon { opacity: 0.55; font-size: 0.9em; }
+
+  .sec-diagram iframe {
+    width: 100%; display: block; border: none;
+    background: #fff;
+  }
+
+  .sec-diagram-caption {
+    padding: 0.38rem 0.9rem;
+    font-size: 0.78rem; font-style: italic; color: var(--ink-faint);
+    border-top: 1px solid var(--border); background: var(--bg-warm);
+  }
+
+  /* ─── Loading / Error ────────────────────────────────────────────────────── */
+  #loading {
+    display: flex; align-items: center; gap: 1rem;
+    color: var(--ink-faint); font-size: 0.95rem; padding: 3rem 0;
+  }
+  .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border); border-top-color: var(--teal);
+    border-radius: 50%; animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .err {
+    padding: 1.5rem; color: #8a4a3a;
+    background: #fdf2ee; border: 1px solid #e8c8bc;
+    border-radius: 4px; font-size: 0.9rem;
+  }
+
+  /* ─── Search results ─────────────────────────────────────────────────────── */
+  #search-results { display: none; padding: 2rem 0; }
+
+  .search-hdr {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.38rem; font-weight: 300; margin-bottom: 0.35rem;
+  }
+  .search-count {
+    font-size: 0.84rem; color: var(--ink-faint);
+    margin-bottom: 1.6rem; padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sr-item {
+    border: 1px solid var(--border); border-radius: 5px;
+    margin-bottom: 0.7rem; overflow: hidden;
+    cursor: pointer; transition: border-color 0.13s, box-shadow 0.13s;
+  }
+  .sr-item:hover {
+    border-color: var(--teal);
+    box-shadow: 0 2px 8px rgba(42,95,107,0.09);
+  }
+
+  .sr-meta {
+    display: flex; align-items: center; gap: 0.45rem;
+    padding: 0.45rem 0.85rem; background: var(--bg-warm);
+    font-size: 0.73rem; color: var(--ink-faint);
+    border-bottom: 1px solid var(--border); flex-wrap: wrap;
+  }
+  .sr-mod  { font-weight: 700; letter-spacing: 0.04em; color: var(--teal); }
+  .sr-text { color: var(--ink-soft); }
+  .sr-sec  { color: var(--gold); font-style: italic; }
+  .sr-sep  { opacity: 0.35; }
+
+  .sr-body {
+    padding: 0.65rem 0.85rem; font-size: 0.91rem;
+    line-height: 1.62; color: var(--ink-soft); background: var(--bg-card);
+  }
+  .sr-body mark {
+    background: var(--mark); border-bottom: 1.5px solid var(--mark-b);
+    border-radius: 2px; padding: 0 0.1em; color: var(--ink);
+  }
+
+  .no-results { color: var(--ink-faint); font-size: 0.95rem; padding: 2rem 0; }
+
+  /* Highlight animation on navigate */
+  @keyframes hl-pulse {
+    0%   { box-shadow: 0 0 0 3px #a8e0c0; }
+    100% { box-shadow: none; }
+  }
+  .hl-target { animation: hl-pulse 1.4s ease forwards; }
+
+  /* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-warm); }
+  ::-webkit-scrollbar-thumb { background: var(--border-s); border-radius: 3px; }
+
+  /* ─── Responsive ─────────────────────────────────────────────────────────── */
+  @media (max-width: 780px) {
+    #shell { grid-template-columns: 1fr; }
+    #sidebar { position: static; height: auto; }
+    #main { padding: 1.5rem 1.2rem 4rem; }
+  }
+</style>
+</head>
+<body>
+<div id="shell">
+
+  <!-- ═══ SIDEBAR ══════════════════════════════════════════════════════════ -->
+  <nav id="sidebar">
+    <h1>Linguística<em>Semiótica & Etimologia</em></h1>
+
+    <div id="search-wrap">
+      <span id="search-icon">⌕</span>
+      <input id="search-input" type="text"
+             placeholder="Buscar conceito ou expressão…"
+             autocomplete="off" spellcheck="false">
+      <button id="search-clear" title="Limpar">✕</button>
+    </div>
+
+    <!-- Parte I -->
+    <div class="nav-part">Parte I — Fundamentos</div>
+
+    <div class="nav-mod active" data-key="m01" onclick="loadModule('m01',this)">
+      <span class="nav-num">01</span>
+      <span class="nav-label">A Natureza da Linguagem</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m02" onclick="loadModule('m02',this)">
+      <span class="nav-num">02</span>
+      <span class="nav-label">Fonética &amp; Fonologia</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m03" onclick="loadModule('m03',this)">
+      <span class="nav-num">03</span>
+      <span class="nav-label">Morfologia</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m04" onclick="loadModule('m04',this)">
+      <span class="nav-num">04</span>
+      <span class="nav-label">Sintaxe</span>
+      <span class="nav-badge">…</span>
+    </div>
+
+    <!-- Parte II -->
+    <div class="nav-part" style="margin-top:0.6rem">Parte II — Sentido &amp; Signo</div>
+
+    <div class="nav-mod" data-key="m05" onclick="loadModule('m05',this)">
+      <span class="nav-num">05</span>
+      <span class="nav-label">Semântica</span>
+      <span class="nav-foco">★</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m06" onclick="loadModule('m06',this)">
+      <span class="nav-num">06</span>
+      <span class="nav-label">Pragmática</span>
+      <span class="nav-foco">★</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m07" onclick="loadModule('m07',this)">
+      <span class="nav-num">07</span>
+      <span class="nav-label">Semiótica</span>
+      <span class="nav-foco">★</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m08" onclick="loadModule('m08',this)">
+      <span class="nav-num">08</span>
+      <span class="nav-label">Linguística Histórica</span>
+      <span class="nav-foco">★</span>
+      <span class="nav-badge">…</span>
+    </div>
+
+    <!-- Parte III -->
+    <div class="nav-part" style="margin-top:0.6rem">Parte III — Origens &amp; Culturas</div>
+
+    <div class="nav-mod" data-key="m09" onclick="loadModule('m09',this)">
+      <span class="nav-num">09</span>
+      <span class="nav-label">Etimologia Comparativa</span>
+      <span class="nav-foco">★</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m10" onclick="loadModule('m10',this)">
+      <span class="nav-num">10</span>
+      <span class="nav-label">Ling. Antropológica &amp; Etnolinguística</span>
+      <span class="nav-foco">★</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m11" onclick="loadModule('m11',this)">
+      <span class="nav-num">11</span>
+      <span class="nav-label">Sociolinguística</span>
+      <span class="nav-badge">…</span>
+    </div>
+
+    <!-- Parte IV -->
+    <div class="nav-part" style="margin-top:0.6rem">Parte IV — Mente &amp; Filosofia</div>
+
+    <div class="nav-mod" data-key="m12" onclick="loadModule('m12',this)">
+      <span class="nav-num">12</span>
+      <span class="nav-label">Psicolinguística</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m13" onclick="loadModule('m13',this)">
+      <span class="nav-num">13</span>
+      <span class="nav-label">Linguística Cognitiva</span>
+      <span class="nav-foco">★</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m14" onclick="loadModule('m14',this)">
+      <span class="nav-num">14</span>
+      <span class="nav-label">Filosofia da Linguagem</span>
+      <span class="nav-badge">…</span>
+    </div>
+
+    <!-- Parte V -->
+    <div class="nav-part" style="margin-top:0.6rem">Parte V — Tópicos Avançados</div>
+
+    <div class="nav-mod" data-key="m15" onclick="loadModule('m15',this)">
+      <span class="nav-num">15</span>
+      <span class="nav-label">Análise do Discurso</span>
+      <span class="nav-badge">…</span>
+    </div>
+    <div class="nav-mod" data-key="m16" onclick="loadModule('m16',this)">
+      <span class="nav-num">16</span>
+      <span class="nav-label">Contato Linguístico &amp; Crioulos</span>
+      <span class="nav-badge">…</span>
+    </div>
+  </nav>
+
+  <!-- ═══ MAIN ══════════════════════════════════════════════════════════════ -->
+  <main id="main">
+    <div id="module-view">
+      <div id="loading"><div class="spinner"></div> Carregando…</div>
+    </div>
+    <div id="search-results"></div>
+  </main>
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+  JSON SCHEMA  (for each modXX.json file)
+  ════════════════════════════════════════════════════════════════════════
+
+  {
+    "modulo":  1,
+    "titulo":  "A Natureza da Linguagem",
+    "parte":   "I — Fundamentos",
+    "foco":    false,
+
+    "intro":   "(optional) Short italicised overview paragraph shown above sections.",
+
+    "secoes": [
+      {
+        "titulo": "1. Uma definição impossível (e por que isso importa)",
+        "html":   "<p>Full HTML content of the section…</p>",
+
+        "diagrama": {
+          "arquivo": "mod01_hockett.html",
+          "titulo":  "Features de Hockett",
+          "altura":  300,
+          "legenda": "13 propriedades universais da linguagem humana (Hockett, 1960)"
+        }
+      },
+      {
+        "titulo": "2. Langue vs. parole — Saussure",
+        "html":   "<p>…</p>"
+      }
+    ]
+  }
+
+  NOTE — multiple diagrams in a single section:
+  Use "diagramas": [ {...}, {...} ]  (plural) instead of "diagrama".
+
+  NOTE — section that is ONLY a diagram (no prose):
+  Set "html": "" and use the "diagrama" / "diagramas" field normally.
+
+  NOTE — diagram heights:
+  Defaults to 320px if "altura" is omitted.
+  Use a value that fits the content snugly (no white space below).
+
+════════════════════════════════════════════════════════════════════════ -->
+
+<script>
+// ── Module registry ───────────────────────────────────────────────────────
+const MODULES = {
+  'm01':{ file:'mod01.json', num:'01', label:'A Natureza da Linguagem',               parte:'I',   foco:false, data:null, status:'next' },
+  'm02':{ file:'mod02.json', num:'02', label:'Fonética & Fonologia',                   parte:'I',   foco:false, data:null, status:'next' },
+  'm03':{ file:'mod03.json', num:'03', label:'Morfologia',                             parte:'I',   foco:false, data:null, status:'next' },
+  'm04':{ file:'mod04.json', num:'04', label:'Sintaxe',                                parte:'I',   foco:false, data:null, status:'next' },
+  'm05':{ file:'mod05.json', num:'05', label:'Semântica',                              parte:'II',  foco:true,  data:null, status:'next' },
+  'm06':{ file:'mod06.json', num:'06', label:'Pragmática',                             parte:'II',  foco:true,  data:null, status:'next' },
+  'm07':{ file:'mod07.json', num:'07', label:'Semiótica',                              parte:'II',  foco:true,  data:null, status:'next' },
+  'm08':{ file:'mod08.json', num:'08', label:'Linguística Histórica',                  parte:'II',  foco:true,  data:null, status:'next' },
+  'm09':{ file:'mod09.json', num:'09', label:'Etimologia Comparativa',                 parte:'III', foco:true,  data:null, status:'next' },
+  'm10':{ file:'mod10.json', num:'10', label:'Ling. Antropológica & Etnolinguística',  parte:'III', foco:true,  data:null, status:'next' },
+  'm11':{ file:'mod11.json', num:'11', label:'Sociolinguística',                        parte:'III', foco:false, data:null, status:'next' },
+  'm12':{ file:'mod12.json', num:'12', label:'Psicolinguística',                        parte:'IV',  foco:false, data:null, status:'next' },
+  'm13':{ file:'mod13.json', num:'13', label:'Linguística Cognitiva',                   parte:'IV',  foco:true,  data:null, status:'next' },
+  'm14':{ file:'mod14.json', num:'14', label:'Filosofia da Linguagem',                  parte:'IV',  foco:false, data:null, status:'next' },
+  'm15':{ file:'mod15.json', num:'15', label:'Análise do Discurso',                     parte:'V',   foco:false, data:null, status:'next' },
+  'm16':{ file:'mod16.json', num:'16', label:'Contato Linguístico & Crioulos',          parte:'V',   foco:false, data:null, status:'next' },
+};
+
+let currentKey  = null;
+let activeNavEl = null;
+let searchTimer = null;
+
+// ── Bootstrap ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  await detectModules();
+  loadAllBackground();
+
+  const firstNav = document.querySelector('.nav-mod');
+  activeNavEl = firstNav;
+  loadModule('m01', firstNav);
+
+  const inp = document.getElementById('search-input');
+  const clr = document.getElementById('search-clear');
+
+  inp.addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    const q = inp.value.trim();
+    clr.style.display = q ? 'block' : 'none';
+    if (q.length < 2) { clearSearch(); return; }
+    searchTimer = setTimeout(() => runSearch(q), 220);
+  });
+  clr.addEventListener('click', () => {
+    inp.value = ''; clr.style.display = 'none';
+    clearSearch(); inp.focus();
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Escape') clr.click();
+  });
+});
+
+// ── Detect which JSON files exist ──────────────────────────────────────────
+async function detectModules() {
+  await Promise.all(Object.entries(MODULES).map(async ([k, m]) => {
+    try {
+      const r = await fetch(m.file, { method: 'HEAD' });
+      if (r.ok) m.status = 'done';
+    } catch(_) {}
+  }));
+  updateNavBadges();
+}
+
+function updateNavBadges() {
+  document.querySelectorAll('.nav-mod').forEach(el => {
+    const k = el.dataset.key;
+    const m = MODULES[k]; if (!m) return;
+    const b = el.querySelector('.nav-badge');
+    if (m.status === 'done') { b.className = 'nav-badge done'; b.textContent = 'Concluído'; }
+    else { b.className = 'nav-badge next'; b.textContent = 'Em breve'; }
+  });
+}
+
+// ── Data fetching ──────────────────────────────────────────────────────────
+async function fetchData(key) {
+  const m = MODULES[key];
+  if (!m) return null;
+  if (m.data) return m.data;
+  if (m.status !== 'done') return null;
+  try {
+    const r = await fetch(m.file);
+    if (!r.ok) return null;
+    m.data = await r.json();
+    return m.data;
+  } catch(_) { return null; }
+}
+
+async function loadAllBackground() {
+  for (const k of Object.keys(MODULES))
+    if (MODULES[k].status === 'done') await fetchData(k);
+}
+
+// ── Section load ───────────────────────────────────────────────────────────
+async function loadModule(key, navEl) {
+  clearSearch();
+  currentKey = key;
+  if (activeNavEl) activeNavEl.classList.remove('active');
+  activeNavEl = navEl;
+  navEl.classList.add('active');
+
+  showModuleView();
+  const view = document.getElementById('module-view');
+  view.innerHTML = '<div id="loading"><div class="spinner"></div> Carregando…</div>';
+
+  const m = MODULES[key];
+  if (!m || m.status !== 'done') {
+    view.innerHTML = `
+      <div class="page-header">
+        <div class="mod-badges">
+          <span class="mod-badge parte">Parte ${m ? m.parte : ''} — Módulo ${m ? m.num : ''}</span>
+          ${m && m.foco ? '<span class="mod-badge foco">★ Módulo de foco</span>' : ''}
+          <span class="mod-badge wip">Em construção</span>
+        </div>
+        <h2>${m ? m.label : 'Módulo'}</h2>
+        <p class="sub">O conteúdo será adicionado à medida que o curso avança.</p>
+      </div>`;
+    return;
+  }
+
+  const data = await fetchData(key);
+  if (!data) {
+    view.innerHTML = `<div class="err">Erro ao carregar ${m.file}.</div>`;
+    return;
+  }
+  renderModule(data, key);
+}
+
+// ── Render module ──────────────────────────────────────────────────────────
+function renderModule(data, key) {
+  const view = document.getElementById('module-view');
+  const m    = MODULES[key];
+  const secs = data.secoes || [];
+  const nsec = secs.length;
+
+  let html = `
+    <div class="page-header">
+      <div class="mod-badges">
+        <span class="mod-badge parte">Parte ${data.parte || m.parte} — Módulo ${m.num}</span>
+        ${data.foco ? '<span class="mod-badge foco">★ Módulo de foco</span>' : ''}
+        <span class="mod-badge done">Concluído</span>
+      </div>
+      <h2>${data.titulo}</h2>
+      <p class="sub">${nsec} seção${nsec !== 1 ? 'ões' : ''}</p>
+    </div>`;
+
+  if (data.intro) {
+    html += `<div class="mod-intro">${data.intro}</div>`;
+  }
+
+  if (nsec > 0) {
+    html += `
+      <div class="sec-controls">
+        <button class="ctrl-btn" onclick="expandAll('${key}')">Expandir tudo</button>
+        <button class="ctrl-btn" onclick="collapseAll('${key}')">Recolher tudo</button>
+      </div>`;
+  }
+
+  html += `<div class="sec-list" id="sec-list-${key}">`;
+
+  secs.forEach((sec, i) => {
+    const sid = `sec-${key}-${i}`;
+    html += `
+      <div class="sec-block" id="${sid}">
+        <div class="sec-hd" onclick="toggleSec('${sid}')">
+          <span class="sec-title">${sec.titulo}</span>
+          <span class="sec-arr">▾</span>
+        </div>
+        <div class="sec-body">
+          ${sec.html || ''}
+          ${buildDiagramas(sec)}
+        </div>
+      </div>`;
+  });
+
+  html += '</div>';
+  view.innerHTML = html;
+}
+
+// ── Diagram builder ────────────────────────────────────────────────────────
+function buildDiagramas(sec) {
+  // Support both "diagrama" (single) and "diagramas" (array)
+  const list = sec.diagramas
+    ? sec.diagramas
+    : sec.diagrama
+      ? [sec.diagrama]
+      : [];
+
+  if (!list.length) return '';
+
+  return list.map(d => {
+    if (!d || !d.arquivo) return '';
+    const h = d.altura || 320;
+    return `
+      <div class="sec-diagram">
+        <div class="sec-diagram-hd">
+          <span class="diag-icon">◈</span>
+          ${escHtml(d.titulo || 'Diagrama')}
+        </div>
+        <iframe src="${escHtml(d.arquivo)}" height="${h}"
+                scrolling="no" loading="lazy"
+                title="${escHtml(d.titulo || 'Diagrama')}"></iframe>
+        ${d.legenda
+          ? `<div class="sec-diagram-caption">${escHtml(d.legenda)}</div>`
+          : ''}
+      </div>`;
+  }).join('');
+}
+
+// ── Section toggle helpers ─────────────────────────────────────────────────
+function toggleSec(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('open');
+}
+
+function expandAll(key) {
+  document.querySelectorAll(`#sec-list-${key} .sec-block`)
+    .forEach(b => b.classList.add('open'));
+}
+
+function collapseAll(key) {
+  document.querySelectorAll(`#sec-list-${key} .sec-block`)
+    .forEach(b => b.classList.remove('open'));
+}
+
+// ── Search ─────────────────────────────────────────────────────────────────
+function stripHtml(h) {
+  const d = document.createElement('div');
+  d.innerHTML = h;
+  return d.textContent || d.innerText || '';
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+function snippet(text, q, r = 130) {
+  const lo = text.toLowerCase(), qi = q.toLowerCase();
+  const i  = lo.indexOf(qi);
+  if (i === -1) return text.slice(0, r * 2);
+  const s = Math.max(0, i - r);
+  const e = Math.min(text.length, i + q.length + r);
+  return (s > 0 ? '…' : '') + text.slice(s, e) + (e < text.length ? '…' : '');
+}
+
+function highlight(text, q) {
+  const re = new RegExp(`(${escRe(q)})`, 'gi');
+  return escHtml(text).replace(re, '<mark>$1</mark>');
+}
+
+async function runSearch(query) {
+  showSearchView();
+  const res = document.getElementById('search-results');
+  const ql  = query.toLowerCase();
+  const hits = [];
+
+  for (const [k, mod] of Object.entries(MODULES)) {
+    if (mod.status !== 'done') continue;
+    const data = await fetchData(k);
+    if (!data || !data.secoes) continue;
+
+    data.secoes.forEach((sec, si) => {
+      const plain = stripHtml(sec.html || '');
+      const titleMatch = (sec.titulo || '').toLowerCase().includes(ql);
+      const bodyMatch  = plain.toLowerCase().includes(ql);
+      if (titleMatch || bodyMatch) {
+        hits.push({
+          modKey:   k,
+          modNum:   mod.num,
+          modLabel: data.titulo || mod.label,
+          secTitle: sec.titulo,
+          secIdx:   si,
+          plain
+        });
+      }
+    });
+  }
+
+  if (!hits.length) {
+    res.innerHTML = `
+      <p class="search-hdr">Busca: <em>${escHtml(query)}</em></p>
+      <p class="no-results">Nenhum resultado encontrado.</p>`;
+    return;
+  }
+
+  const nMods = new Set(hits.map(h => h.modKey)).size;
+  let html = `
+    <p class="search-hdr">Busca: <em>${escHtml(query)}</em></p>
+    <p class="search-count">${hits.length} resultado${hits.length !== 1 ? 's' : ''} em ${nMods} módulo${nMods !== 1 ? 's' : ''}</p>`;
+
+  hits.forEach(h => {
+    const snip = snippet(h.plain, query);
+    const hl   = highlight(snip, query);
+    html += `
+      <div class="sr-item" onclick="navigateTo('${h.modKey}', ${h.secIdx})">
+        <div class="sr-meta">
+          <span class="sr-mod">Módulo ${h.modNum}</span>
+          <span class="sr-sep">·</span>
+          <span class="sr-text">${escHtml(h.modLabel)}</span>
+          ${h.secTitle
+            ? `<span class="sr-sep">·</span><span class="sr-sec">${escHtml(h.secTitle)}</span>`
+            : ''}
+        </div>
+        <div class="sr-body">${hl}</div>
+      </div>`;
+  });
+
+  res.innerHTML = html;
+}
+
+// ── Navigate from search result ────────────────────────────────────────────
+async function navigateTo(modKey, secIdx) {
+  clearSearch();
+  showModuleView();
+
+  const navEl = document.querySelector(`.nav-mod[data-key="${modKey}"]`);
+  if (navEl) {
+    if (activeNavEl) activeNavEl.classList.remove('active');
+    activeNavEl = navEl;
+    navEl.classList.add('active');
+  }
+  currentKey = modKey;
+
+  const data = await fetchData(modKey);
+  if (!data) return;
+  renderModule(data, modKey);
+
+  await new Promise(r => setTimeout(r, 80));
+
+  const sid   = `sec-${modKey}-${secIdx}`;
+  const secEl = document.getElementById(sid);
+  if (secEl) {
+    secEl.classList.add('open');
+    setTimeout(() => {
+      secEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      secEl.classList.add('hl-target');
+      setTimeout(() => secEl.classList.remove('hl-target'), 1500);
+    }, 80);
+  }
+}
+
+// ── View switching ─────────────────────────────────────────────────────────
+function showModuleView() {
+  document.getElementById('module-view').style.display   = '';
+  document.getElementById('search-results').style.display = 'none';
+}
+
+function showSearchView() {
+  document.getElementById('module-view').style.display   = 'none';
+  document.getElementById('search-results').style.display = 'block';
+}
+
+function clearSearch() {
+  showModuleView();
+  document.getElementById('search-results').innerHTML = '';
+}
+</script>
+</body>
+</html>

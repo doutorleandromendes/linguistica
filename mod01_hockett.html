@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head><meta charset="UTF-8"><style>
+body { font-family: system-ui, sans-serif; background: transparent; padding: 0.5rem 0; margin: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 8px; }
+.feat { background: #fff; border: 0.5px solid #d3d1c7; border-radius: 10px; padding: 0.75rem 1rem; }
+.feat.core { background: #EEEDFE; border-color: #AFA9EC; }
+.feat-num { font-size: 10px; color: #B4B2A9; margin-bottom: 2px; }
+.feat-name { font-size: 12px; font-weight: 500; color: #2c2c2a; margin-bottom: 3px; }
+.feat.core .feat-name { color: #3C3489; }
+.feat-desc { font-size: 11px; color: #5f5e5a; line-height: 1.45; }
+.feat.core .feat-desc { color: #534AB7; }
+.legend { display: flex; gap: 14px; margin-top: 10px; }
+.leg { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #888780; }
+.dot { width: 9px; height: 9px; border-radius: 2px; }
+</style></head>
+<body>
+<div class="grid">
+  <div class="feat core">
+    <div class="feat-num">01</div>
+    <div class="feat-name">Arbitrariedade</div>
+    <div class="feat-desc">Nenhuma relação natural entre som e significado. "Cão" e "dog" referem ao mesmo animal.</div>
+  </div>
+  <div class="feat core">
+    <div class="feat-num">02</div>
+    <div class="feat-name">Dupla articulação</div>
+    <div class="feat-desc">Sons sem sentido (fonemas) combinam-se em unidades com sentido (morfemas). Economia radical.</div>
+  </div>
+  <div class="feat core">
+    <div class="feat-num">03</div>
+    <div class="feat-name">Produtividade</div>
+    <div class="feat-desc">Falantes produzem e compreendem frases nunca antes ouvidas. Criatividade ilimitada com meios finitos.</div>
+  </div>
+  <div class="feat core">
+    <div class="feat-num">04</div>
+    <div class="feat-name">Deslocamento</div>
+    <div class="feat-desc">Capacidade de falar sobre o passado, o futuro, o hipotético e o impossível. Única entre os animais.</div>
+  </div>
+  <div class="feat">
+    <div class="feat-num">05</div>
+    <div class="feat-name">Transmissão cultural</div>
+    <div class="feat-desc">Línguas não são herdadas geneticamente — são aprendidas por imersão em comunidades.</div>
+  </div>
+  <div class="feat">
+    <div class="feat-num">06</div>
+    <div class="feat-name">Canal vocal-auditivo</div>
+    <div class="feat-desc">Canal primário — embora línguas de sinais mostrem que o substrato pode ser gestual-visual.</div>
+  </div>
+  <div class="feat">
+    <div class="feat-num">07</div>
+    <div class="feat-name">Intercambialidade</div>
+    <div class="feat-desc">O mesmo indivíduo pode ser emissor e receptor da mesma mensagem.</div>
+  </div>
+  <div class="feat">
+    <div class="feat-num">08</div>
+    <div class="feat-name">Especialização</div>
+    <div class="feat-desc">O sinal linguístico existe para comunicar — não é subproduto de outra função biológica.</div>
+  </div>
+</div>
+<div class="legend">
+  <div class="leg"><div class="dot" style="background:#AFA9EC;"></div> Características que distinguem a linguagem humana de toda comunicação animal</div>
+  <div class="leg"><div class="dot" style="background:#d3d1c7;"></div> Compartilhadas parcialmente com outros sistemas</div>
+</div>
+</body>
+</html>
